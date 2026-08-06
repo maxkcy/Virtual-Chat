@@ -6,6 +6,6 @@ This repository is for Virtual Chat Releases.
 
 .deb releases are available. .rpm releases may be available. Click to install.
 
-FAQ:
-Que: Does Virtual Chat continuously transmit all audio to OpenRouter while the transcription service is turned on?
-Ans: No. Virtual Chat detects uses both audio level and internal algorithm to detect is there is speech in the audio. If the audio is too low or speech isn't detected, it does not send the audio for transcription.
+FAQs:
+Question: Does Virtual Chat continuously transmit all audio to OpenRouter while the transcription service is turned on?
+Answer: No. Virtual Chat detects uses both volume level and internal algorithm to check for speech in the audio. If the volume is too low or speech isn't detected, it does not. However, if you intend to be away from the computer, and are not using transcription, turn it off, Virtual Chat does not automatically turn off the transcription service.
