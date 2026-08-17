@@ -9,11 +9,11 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 
 ## Key Features
 
-- 🎧 **Transcribe anything** – system audio or Bluetooth devices (A2DP/HFP) become live chat messages.
+- 🎧 **Transcribe anything** – system audio or Bluetooth devices (A2DP/HFP) become live chat messages. That means you can connect your phone and transcribe all phone audio to chat.
 - 🤖 **AI assistant** – bring your own OpenRouter key, set a custom prompt, and chat with an AI that understands your conversation.
 - 📝 **Auto‑summarisation** – get concise recaps of long conversations.
 - 🔒 **Secure by default** – API keys are stored in the system keyring, and audio is only sent once speech is detected.
-- 🧩 **Works with your workflow** – perfect for podcasters, streamers, and content creators.
+- 🧩 **Works with your workflow** – perfect for podcasters, streamers, and content creators. Yes, works for phone audio, just connect phone, and configure the Linux sound settings to route audio out the headset, then select the headset as the transcribe device.
 
 ## Screenshots
 
