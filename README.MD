@@ -1,28 +1,56 @@
-Virtual Chat is a Linux app that can transcribe input and output audio of system or Bluetooth linked devices (i.e. headset, phone) into chat format using OpenRouter provided transcription models over the internet. Users can further request AI assistance, based on their custom prompt, and chat summaries. The app requires an active paid subscription (trail available). Works for podcasters, or on Tiktok live. Hate promoting prompts and chats are strictly forbidden for AI assistance.
+# Virtual Chat
 
-Price: After quarterly or yearly subscription costs from US$6.00-15.99, AI costs apx. $0.50 per hour use.
+**Turn any audio into a conversation.**  
+Virtual Chat is a Linux app that transcribes input and output audio from system or Bluetooth-linked devices (headset, phone, etc.) into a real‑time chat format — powered by OpenRouter’s AI models.  
 
-This repository is for Virtual Chat Releases.
+Add your own AI assistant with a custom prompt, get automatic chat summaries, and keep your content flowing for podcasts, live streams, or TikTok Live.
 
-Download:
-Use the Flatpak download for most Linux distros to run this application in a secure sandbox. If that doesn't work, the .deb release is available in the releases (but can't be updated without checking back), .rpm release may be available. Click to install.
+> 🚀 **Paid subscription required** – but a free trial is available.
 
-FAQs:
+## Key Features
 
-Question: Does Virtual Chat continuously transmit all audio to OpenRouter while the transcription service is turned on?
+- 🎧 **Transcribe anything** – system audio or Bluetooth devices (A2DP/HFP) become live chat messages.
+- 🤖 **AI assistant** – bring your own OpenRouter key, set a custom prompt, and chat with an AI that understands your conversation.
+- 📝 **Auto‑summarisation** – get concise recaps of long conversations.
+- 🔒 **Secure by default** – API keys are stored in the system keyring, and audio is only sent once speech is detected.
+- 🧩 **Works with your workflow** – perfect for podcasters, streamers, and content creators.
 
-Answer: No. Virtual Chat detects uses both volume level and internal algorithm to check for speech in the audio. If the volume is too low or speech isn't detected, it does not. However, if you intend to be away from the computer, and are not using transcription, turn it off, Virtual Chat does not automatically turn off the transcription service.
+## Screenshots
 
-Question: Why is this Linux only?
+| | |
+|---|---|
+| ![Screenshot 1](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/1.png) | ![Screenshot 2](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/2.png) |
+| ![Screenshot 3](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/3.png) | ![Screenshot 4](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/4.png) |
+| ![Screenshot 5](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/5.png) | ![Screenshot 6](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/6.png) |
 
-Answer: Because Linux provided the easiest development path for making this type of app. For windows we would need to create features that are pre-available in Linux. Android does not allow audio capture. A bridge app can be made to control the Linux app directly from the phone and display the transcribed chat on the phone screen.
+## Download & Install
 
-Question: Is internet connect required?
+- **Flatpak** (recommended for most Linux distros) – secure sandboxed install.
+- **.deb** – for Debian/Ubuntu (needs manual updates).
+- **.rpm** – maybe available for RPM‑based distros.
 
-Answer: Yes, you need an internet connection for OpenRouter.
+All releases are available on the [Releases page](https://github.com/maxkcy/Virtual-Chat/releases).  
+Just download (Flatpak recommended), install, and start transcribing.
 
-Question: Does the app support locally running models?
+## FAQs
 
-Answer: No, because as the app developer, we do not have the computer infrastructure to build and test this, moreover, internet provided AI models are extremely powerful, robust, fast, and fairly cheap. OpenRouter respects user privacy, and provides free models too. 
+**Does Virtual Chat continuously transmit all audio to OpenRouter while transcription is on?**  
+No. Virtual Chat uses both volume level and a built‑in speech‑detection algorithm. Audio is only sent when speech is detected. If you’re away from the computer, turn off transcription to be safe.
 
-WARNING: We noticed that the transcription system can sometimes (mostly rarely) crash. For the front user there are no errors displayed. If audio suddenly stops being transcribed and you have tried to force recreate app streams, it was probably because buttons were pressed harum-scarum, or the different app audios are changed rapidly, such as from switching videos (video audio), or opening a new video in the background, etc. Restart the app and use your computer mildly.
+**Why is this Linux only?**  
+Linux provides the easiest development path for this kind of app. Windows would require extra features, and Android doesn’t allow audio capture. A companion mobile bridge app can be created.
+
+**Is an internet connection required?**  
+Yes, you need an internet connection for OpenRouter.
+
+**Does the app support locally running models?**  
+No. We don’t have the infrastructure to build/test local models, and cloud models are more powerful, robust, fast, and affordable. OpenRouter respects your privacy and even offers free models.
+
+## Pricing
+
+- Subscription: Low and High Tiers **US$6.99–15.99** per quarter or year (trial available). Payments processed by Xsolla
+- OpenRouter API costs: **~$0.50 per hour** of active use.
+
+## ⚠️ Known Issue
+
+The transcription system can occasionally crash (rare). If audio suddenly stops being transcribed, it’s often caused by rapidly switching app audio (e.g., watching videos) or pressing buttons too quickly. Simply restart the app and use your computer normally.
