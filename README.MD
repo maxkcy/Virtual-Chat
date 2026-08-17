@@ -4,7 +4,7 @@ Price: After quarterly or yearly subscription costs from US$6.00-15.99, AI costs
 
 This repository is for Virtual Chat Releases.
 
-For most Linux distros, use the flatpak download. If that doesn't work, the .deb releases are available. .rpm releases may be available. Click to install.
+For use the Flatpak download for most Linux distros to run this application in a secure sandbox. If that doesn't work, the .deb release is available, .rpm release may be available. Click to install.
 
 FAQs:
 
@@ -14,4 +14,4 @@ Answer: No. Virtual Chat detects uses both volume level and internal algorithm t
 
 Question: Why is this Linux only?
 
-Answer: Because Linux provided the easiest development path for making this sort of app. For windows we would need to create features that are pre-available in Linux. Android does not allow audio capture.
+Answer: Because Linux provided the easiest development path for making this type of app. For windows we would need to create features that are pre-available in Linux. Android does not allow audio capture. A bridge app can be made to control the Linux app directly from the phone and display the transcribed chat on the phone screen.
