@@ -4,8 +4,14 @@ Price: After quarterly or yearly subscription costs from US$6.00-15.99, AI costs
 
 This repository is for Virtual Chat Releases.
 
-.deb releases are available. .rpm releases may be available. Click to install.
+For most Linux distros, use the flatpak download. If that doesn't work, the .deb releases are available. .rpm releases may be available. Click to install.
 
 FAQs:
+
 Question: Does Virtual Chat continuously transmit all audio to OpenRouter while the transcription service is turned on?
+
 Answer: No. Virtual Chat detects uses both volume level and internal algorithm to check for speech in the audio. If the volume is too low or speech isn't detected, it does not. However, if you intend to be away from the computer, and are not using transcription, turn it off, Virtual Chat does not automatically turn off the transcription service.
+
+Question: Why is this Linux only?
+
+Answer: Because Linux provided the easiest development path for making this sort of app. For windows we would need to create features that are pre-available in Linux. Android does not allow audio capture.
