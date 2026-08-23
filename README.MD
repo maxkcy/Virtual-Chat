@@ -26,11 +26,12 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 ## Demo video
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=7Ver6qHS4H4" target="_blank">
-    <img src="https://youtube.com" alt="Video Tutorial" width="70%"/>
+  <a href="https://www.youtube.com/watch?v=7Ver6qHS4H4">
+    <img src="https://img.youtube.com/vi/7Ver6qHS4H4/maxresdefault.jpg"
+         alt="Demo Video"
+         width="70%">
   </a>
 </p>
-
 
 
 ## Download & Install
