@@ -25,7 +25,7 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 
 ## Demo video
 
-![Video Tutorial](https://www.youtube.com/watch?v=7Ver6qHS4H4)
+[![Video Tutorial](https://youtube.com)](https://www.youtube.com/watch?v=7Ver6qHS4H4)
 
 
 ## Download & Install
