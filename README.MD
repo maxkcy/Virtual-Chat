@@ -23,6 +23,11 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 | ![Screenshot 3](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/3.png) | ![Screenshot 4](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/4.png) |
 | ![Screenshot 5](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/5.png) | ![Screenshot 6](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/6.png) |
 
+## Demo video
+
+![Video Tutorial](https://www.youtube.com/watch?v=7Ver6qHS4H4)
+
+
 ## Download & Install
 
 - **Flatpak** (recommended for most Linux distros) – secure sandboxed install.
@@ -60,8 +65,10 @@ No. We don’t have the infrastructure to build/test local models, and cloud mod
 ## Pricing
 
 - Subscription: Low and High Tiers from **US$6.99–15.99** per quarter or year (trial available). Payments processed by Xsolla.
-- OpenRouter API costs: **~$0.50 per hour** of active use. (We do not get paid through OpenRouter).
+- OpenRouter API costs: **~$0.50 per hour** of active use. (We do not get paid through OpenRouter or add extra hourly charges to the subscription plan).
 
 ## ⚠️ Known Issue
 
 The transcription system can occasionally crash (rare). If audio suddenly stops being transcribed, it’s often caused by rapidly switching app audio (e.g., watching videos) or pressing buttons too quickly. Simply restart the app and use your computer normally.
+
+Input and output audio streams on a single Bluetooth adapter causes audio lagging and jittering because both the smart phone, that provides audio, and the headset, that captures audio, are connected and creating two input and output audio streams. This may be a hardware limitation, but we are looking into ways to optimize the code. We suggest you connect the smart phone and the headset to different adapters in the meantime to help with the audio lag issue.
