@@ -23,16 +23,13 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 | ![Screenshot 3](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/3.png) | ![Screenshot 4](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/4.png) |
 | ![Screenshot 5](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/5.png) | ![Screenshot 6](https://github.com/maxkcy/Virtual-Chat/raw/main/vcscreenshots/6.png) |
 
-## Demo video
+<h2>Demo video</h2>
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=7Ver6qHS4H4">
-    <img src="https://img.youtube.com/vi/7Ver6qHS4H4/maxresdefault.jpg"
-         alt="Demo Video"
-         width="70%">
+    <img src="https://img.youtube.com/vi/7Ver6qHS4H4/0.jpg" alt="Demo Video" width="70%">
   </a>
 </p>
-
 
 ## Download & Install
 
