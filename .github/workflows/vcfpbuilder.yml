@@ -44,7 +44,7 @@ jobs:
         uses: andyholmes/flatter@main
         with:
           files: |
-            path/to/your/app-manifest.json
+            flathub/io.github.maxkcy.virtual-chat.yaml
           arch: ${{ matrix.arch }}
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
           upload-pages-artifact: true
