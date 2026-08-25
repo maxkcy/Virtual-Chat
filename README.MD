@@ -68,7 +68,7 @@ No. We don’t have the infrastructure to build/test local models, and cloud mod
 ## Pricing
 
 - Subscription: Low and High Tiers from **US$6.99–15.99** per quarter or year (trial available). Payments processed by Xsolla.
-- OpenRouter API costs: **~$0.50 per hour** of active use. (We do not get paid through OpenRouter or add extra hourly charges to the subscription plan).
+- OpenRouter API costs: Estimated **~$0.50 per hour** during active use, but this depends entirely on which models are use. OpenRouter does provides several free models. (We do not get paid through OpenRouter or add extra hourly charges to the subscription plan).
 
 ## ⚠️ Known Issues
 
