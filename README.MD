@@ -70,8 +70,8 @@ No. We don’t have the infrastructure to build/test local models, and cloud mod
 - Subscription: Low and High Tiers from **US$6.99–15.99** per quarter or year (trial available). Payments processed by Xsolla.
 - OpenRouter API costs: **~$0.50 per hour** of active use. (We do not get paid through OpenRouter or add extra hourly charges to the subscription plan).
 
-## ⚠️ Known Issue
+## ⚠️ Known Issues
 
-The transcription system can occasionally crash (rare). If audio suddenly stops being transcribed, it’s often caused by rapidly switching app audio (e.g., watching videos) or pressing buttons too quickly. Simply restart the app and use your computer normally.
+- Input and output audio streams on a single Bluetooth adapter causes audio lagging and jittering because both the smart phone, that provides audio, and the headset, that captures audio, are connected and creating two input and output audio streams. This may be a hardware limitation, but we are looking into ways to optimize the code. We suggest you connect the smart phone and the headset to different adapters in the meantime to help with the audio lag issue.
 
-Input and output audio streams on a single Bluetooth adapter causes audio lagging and jittering because both the smart phone, that provides audio, and the headset, that captures audio, are connected and creating two input and output audio streams. This may be a hardware limitation, but we are looking into ways to optimize the code. We suggest you connect the smart phone and the headset to different adapters in the meantime to help with the audio lag issue.
+- The transcription system can occasionally crash (rare). If audio suddenly stops being transcribed, it’s often caused by rapidly switching app audio (e.g., watching videos) or pressing buttons too quickly. Simply restart the app and use your computer normally.
