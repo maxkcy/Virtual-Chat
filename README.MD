@@ -1,7 +1,7 @@
 # Virtual Chat
 
 **Turn any audio into a conversation.**  
-Virtual Chat is a Linux app that transcribes input and output audio from system or Bluetooth-linked devices (headset, phone, etc.) into a real‑time chat format — powered by OpenRouter’s AI models.  
+Virtual Chat is a real-time audio to conversation formatter; it transcribes input and output audio from system or Bluetooth-linked devices (headset, phone, etc.) into text-based chat format — powered by OpenRouter’s AI models.  
 
 Add your own AI assistant with a custom prompt, get automatic chat summaries, and keep your content flowing for podcasts, live streams, or TikTok Live.
 
@@ -56,7 +56,7 @@ No, you can use system audio. However, system audio is experimental. The app has
 No. Virtual Chat uses both volume level and a built‑in speech‑detection algorithm. Audio is only sent when speech is detected. If you’re away from the computer, turn off transcription to be safe.
 
 **Why is this Linux only?**  
-Linux provides the easiest development path for this kind of app. Windows would require extra features, and Android doesn’t allow audio capture. A companion mobile bridge app can be created.
+Linux provides the easiest development path for this kind of app. Windows would require extra features, and Android doesn’t allow audio capture. A companion mobile bridge app can be created. Linux is easy to install on your same Windows or Mac computer in dual-boot configuration. We recommend the Linux Mint distro.
 
 **Is an internet connection required?**  
 Yes, you need an internet connection for OpenRouter.
