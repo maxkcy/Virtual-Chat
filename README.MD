@@ -34,12 +34,75 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 ## Download & Install
 
 - **Flatpak** (recommended for most Linux distros) – secure sandboxed install.
-- **.deb** – for Debian/Ubuntu (needs manual updates).
-- **.rpm** – maybe available for RPM‑based distros.
+- **.deb** – for Debian/Ubuntu (needs manual updates and uninstalls).
 
-All releases are available on the [Releases page](https://github.com/maxkcy/Virtual-Chat/releases).  
-Just download (Flatpak recommended), install, and start transcribing.
+All releases are available on the [Releases page](https://github.com/maxkcy/Virtual-Chat/releases) for Debian based distros.
 
+### 📦 First-time installation (Flatpak)
+
+1. **Install Flatpak** if you don't already have it:
+
+   ```bash
+   # Debian / Ubuntu
+   sudo apt install flatpak
+
+   # Fedora
+   sudo dnf install flatpak
+
+   # Arch
+   sudo pacman -S flatpak
+   ```
+
+2. **Add our self-hosted Flatpak repository:**
+
+   Our Flatpak repo is served from GitHub Pages at:  
+   `https://maxkcy.github.io/Virtual-Chat/`
+
+   (Set up: enable GitHub Pages and serve from the `gh-pages` branch, with the contents of the `repo/` directory pushed to that branch's root.)
+
+   Add it as a remote:
+
+   ```bash
+   flatpak remote-add --if-not-exists --user virtual-chat-repo https://maxkcy.github.io/Virtual-Chat/
+   ```
+
+3. **Install Virtual Chat:**
+
+   ```bash
+   flatpak install --user virtual-chat-repo io.github.maxkcy.virtual-chat
+   ```
+
+4. **Launch the app:**
+
+   ```bash
+   flatpak run io.github.maxkcy.virtual-chat
+   ```
+
+   Or search for **Virtual Chat** in your application menu.
+
+---
+
+### 🔄 Updating Virtual Chat
+
+Virtual Chat includes a **built-in update checker**. On launch, the app checks the latest release from GitHub. If a newer version is available, a golden **“Update Available: X.Y.Z”** banner appears at the top of the chat list.
+
+1. **Click the “Update Available” banner** in the app (if displayed). It brings you to this page. You can manually download the Debian release, but this also requires manually uninstalling the previous version, we recommend the sandboxed flatpak installation and update method. If you want to use a previous version, check the releases, only Debian releases are available for manual installation.
+
+**To update the Flatpak app:**
+
+2. **Run the update command** in your terminal:
+
+   ```bash
+   flatpak update --user virtual-chat-repo io.github.maxkcy.virtual-chat
+   ```
+
+   Or simply update all your user-installed Flatpak apps (including Virtual Chat and any apps from Flathub or other Flatpak remotes):
+
+   ```bash
+   flatpak update --user
+   ```
+
+3. Relaunch Virtual Chat and the banner will disappear. See step 4 of installation.
 
 ## FAQs
 
