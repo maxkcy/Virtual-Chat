@@ -36,7 +36,7 @@ Add your own AI assistant with a custom prompt, get automatic chat summaries, an
 - **Flatpak** (recommended for most Linux distros) – secure sandboxed install.
 - **.deb** – for Debian/Ubuntu (needs manual updates and uninstalls).
 
-All releases are available on the [Releases page](https://github.com/maxkcy/Virtual-Chat/releases) for Debian based distros.
+All releases are available on the [Releases page](https://github.com/maxkcy/Virtual-Chat/releases) for Debian based distros, simply download, click and install. But we recommend installation through the Flatpak build, continue directly below.
 
 ### 📦 First-time installation (Flatpak)
 
@@ -57,8 +57,6 @@ All releases are available on the [Releases page](https://github.com/maxkcy/Virt
 
    Our Flatpak repo is served from GitHub Pages at:  
    `https://maxkcy.github.io/Virtual-Chat/`
-
-   (Set up: enable GitHub Pages and serve from the `gh-pages` branch, with the contents of the `repo/` directory pushed to that branch's root.)
 
    Add it as a remote:
 
