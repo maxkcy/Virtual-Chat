@@ -45,15 +45,17 @@ All releases are available on the [Releases page](https://github.com/maxkcy/Virt
    ```bash
    # Debian / Ubuntu
    sudo apt install flatpak
-  ```
+   ```
+
    ```bash
    # Fedora
-    sudo dnf install flatpak
-  ```
+   sudo dnf install flatpak
+   ```
+
    ```bash
    # Arch
-    sudo pacman -S flatpak
-  ```
+   sudo pacman -S flatpak
+   ```
 
 2. **Add our self-hosted Flatpak repository:**
 
