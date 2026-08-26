@@ -176,7 +176,7 @@ sudo pacman -S flatpak</code><button class="copy-btn" onclick="copyCode(this)">C
     </p>
     <pre><code>flatpak remote-add --if-not-exists --user virtual-chat-repo https://maxkcy.github.io/Virtual-Chat/</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
 
-    <h3>3. Install Virtual Chat</h3>
+    <h3 id="install">3. Install Virtual Chat</h3>
     <pre><code>flatpak install --user virtual-chat-repo io.github.maxkcy.virtual-chat</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
 
     <h3>4. Launch the app</h3>
@@ -184,7 +184,7 @@ sudo pacman -S flatpak</code><button class="copy-btn" onclick="copyCode(this)">C
     <p>Or search for <strong>Virtual Chat</strong> in your application menu.</p>
 
     <!-- ─── UPDATE ─── -->
-    <h2>🔄 Updating Virtual Chat</h2>
+    <h2 id="update">🔄 Updating Virtual Chat</h2>
 
     <p>
         Virtual Chat includes a <strong>built-in update checker</strong>. On launch, the app checks
@@ -210,7 +210,8 @@ sudo pacman -S flatpak</code><button class="copy-btn" onclick="copyCode(this)">C
     <pre><code>flatpak update --user</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
 
     <p>After the update completes, relaunch Virtual Chat and the banner will disappear.</p>
-
+    <pre><code>flatpak run io.github.maxkcy.virtual-chat</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    
     <!-- ─── FOOTER ─── -->
     <hr style="border: 0; border-top: 1px solid #30363d; margin: 2.5rem 0 1rem;">
     <p style="font-size: 0.85rem; color: #8b949e; text-align: center;">
