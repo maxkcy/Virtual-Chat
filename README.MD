@@ -77,11 +77,7 @@ All releases are available on the [Releases page](https://github.com/maxkcy/Virt
 
 Virtual Chat includes a **built-in update checker**. On launch, the app checks the latest release from GitHub. If a newer version is available, a golden **“Update Available: X.Y.Z”** banner appears at the top of the chat list.
 
-1. **Click the “Update Available” banner** in the app (if displayed). It brings you to this page. You can manually download the Debian release, but this also requires manually uninstalling the previous version, we recommend the sandboxed flatpak installation and update method. If you want to use a previous version, check the releases, only Debian releases are available for manual installation.
-
-**To update the Flatpak app:**
-
-2. **Run the update command** in your terminal:
+**Run the update command** in your terminal:
 
    ```bash
    flatpak update --user io.github.maxkcy.virtual-chat
