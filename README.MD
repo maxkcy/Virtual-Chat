@@ -57,24 +57,13 @@ All releases are available on the [Releases page](https://github.com/maxkcy/Virt
    sudo pacman -S flatpak
    ```
 
-2. **Add our self-hosted Flatpak repository:**
-
-   Our Flatpak repo is served from GitHub Pages at:  
-   `https://maxkcy.github.io/Virtual-Chat/`
-
-   Add it as a remote:
+2. **Install Virtual Chat:**
 
    ```bash
-   flatpak remote-add --if-not-exists --user virtual-chat-repo https://maxkcy.github.io/Virtual-Chat/
+   flatpak install --user https://maxkcy.github.io/Virtual-Chat/io.github.maxkcy.virtual-chat.flatpakref
    ```
 
-3. **Install Virtual Chat:**
-
-   ```bash
-   flatpak install --user virtual-chat-repo io.github.maxkcy.virtual-chat
-   ```
-
-4. **Launch the app:**
+3. **Launch the app:**
 
    ```bash
    flatpak run io.github.maxkcy.virtual-chat
@@ -95,7 +84,7 @@ Virtual Chat includes a **built-in update checker**. On launch, the app checks t
 2. **Run the update command** in your terminal:
 
    ```bash
-   flatpak update --user virtual-chat-repo io.github.maxkcy.virtual-chat
+   flatpak update --user io.github.maxkcy.virtual-chat
    ```
 
    Or simply update all your user-installed Flatpak apps (including Virtual Chat and any apps from Flathub or other Flatpak remotes):
@@ -105,6 +94,14 @@ Virtual Chat includes a **built-in update checker**. On launch, the app checks t
    ```
 
 3. Relaunch Virtual Chat and the banner will disappear. See step 4 of installation.
+
+---
+
+### Uninstalling Virtual Chat
+
+```bash
+flatpak uninstall --user io.github.maxkcy.virtual-chat
+```
 
 ## FAQs
 
