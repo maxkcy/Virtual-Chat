@@ -77,7 +77,7 @@ All releases are available on the [Releases page](https://github.com/maxkcy/Virt
 
 Virtual Chat includes a **built-in update checker**. On launch, the app checks the latest release from GitHub. If a newer version is available, a golden **“Update Available: X.Y.Z”** banner appears at the top of the chat list.
 
-**Run the update command** in your terminal:
+1. **Run the update command** in your terminal:
 
    ```bash
    flatpak update --user io.github.maxkcy.virtual-chat
@@ -89,7 +89,7 @@ Virtual Chat includes a **built-in update checker**. On launch, the app checks t
    flatpak update --user
    ```
 
-3. Relaunch Virtual Chat and the banner will disappear. See step 4 of installation.
+2. Relaunch Virtual Chat and the banner will disappear. See step 4 of installation.
 
 ---
 
