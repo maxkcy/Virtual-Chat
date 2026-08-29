@@ -90,9 +90,6 @@ Virtual Chat includes a **built-in update checker**. On launch, the app checks t
    ```
 
 2. Relaunch Virtual Chat and the banner will disappear.
-  ```bash
-   flatpak run io.github.maxkcy.virtual-chat
-   ```
 
 ---
 
