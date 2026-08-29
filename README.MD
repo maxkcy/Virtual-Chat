@@ -95,9 +95,15 @@ Virtual Chat includes a **built-in update checker**. On launch, the app checks t
 
 ### Uninstalling Virtual Chat
 
+1. **Uninstall**
+   ```bash
+   flatpak uninstall --user io.github.maxkcy.virtual-chat
+   ```
+2. Remove all app data (settings, chat history, cache)
 ```bash
-flatpak uninstall --user io.github.maxkcy.virtual-chat
-```
+   rm -rf ~/.var/app/io.github.maxkcy.virtual-chat/
+   ```
+
 
 ## FAQs
 
