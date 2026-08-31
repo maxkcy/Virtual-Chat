@@ -3,7 +3,9 @@
 **Turn any audio into a conversation.**  
 Virtual Chat is a real-time audio to conversation formatter; it transcribes input and output audio from system or Bluetooth-linked devices (headset, phone, etc.) into text-based chat format — powered by OpenRouter’s AI models.  
 
-Add your own AI assistant with a custom prompt, get automatic chat summaries, and keep your content flowing for podcasts, live streams, or TikTok Live.
+Get AI assistance with a user defined custom prompt, and get automatic AI chat summaries. Keep your content flowing for podcasts, live streams, or TikTok Live.
+
+> **[Check out the website for more infomation](https://maxkcy.github.io/Virtual-Chat/) **.
 
 > **Paid subscription required** – but a free trial is available.
 
