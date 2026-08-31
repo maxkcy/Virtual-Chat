@@ -5,7 +5,7 @@ Virtual Chat is a real-time audio to conversation formatter; it transcribes inpu
 
 Get AI assistance with a user defined custom prompt, and get automatic AI chat summaries. Keep your content flowing for podcasts, live streams, or TikTok Live.
 
-> **[Check out the website for more infomation](https://maxkcy.github.io/Virtual-Chat/) **.
+> [Check out the website for more infomation](https://maxkcy.github.io/Virtual-Chat/).
 
 > **Paid subscription required** – but a free trial is available.
 
