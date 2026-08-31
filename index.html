@@ -1,251 +1,423 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
+    <script>document.documentElement.classList.remove('no-js');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Chat — Self-Hosted Flatpak</title>
-    <style>
-        /* ── reset & base ── */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #0d1117;
-            color: #e6edf3;
-            line-height: 1.6;
-            padding: 2rem 1rem;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 820px;
-            width: 100%;
-            background: #161b22;
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-        }
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.25rem;
-            color: #f0f6fc;
-        }
-        .subhead {
-            font-size: 1.1rem;
-            color: #8b949e;
-            margin-bottom: 2rem;
-            border-left: 3px solid #58a6ff;
-            padding-left: 1rem;
-        }
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 2.2rem;
-            margin-bottom: 0.75rem;
-            color: #f0f6fc;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 0.3rem;
-        }
-        h3 {
-            font-size: 1.15rem;
-            font-weight: 500;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #e6edf3;
-        }
-        p {
-            margin-bottom: 0.75rem;
-            color: #c9d1d9;
-        }
-        ul, ol {
-            margin: 0.5rem 0 1rem 1.5rem;
-            color: #c9d1d9;
-        }
-        li { margin-bottom: 0.3rem; }
-        a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-        a:hover { text-decoration: underline; }
-
-        /* ── code blocks ── */
-        pre {
-            background: #0d1117;
-            border-radius: 8px;
-            padding: 1rem 1.2rem;
-            overflow-x: auto;
-            margin: 0.5rem 0 1rem 0;
-            border: 1px solid #30363d;
-            position: relative;
-        }
-        code {
-            font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
-            font-size: 0.9rem;
-            color: #e6edf3;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        /* inline code */
-        p code, li code {
-            background: #1c2333;
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: #f0e6d0;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.4rem;
-            right: 0.6rem;
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #8b949e;
-            border-radius: 4px;
-            padding: 0.15rem 0.6rem;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.15s;
-            font-family: inherit;
-        }
-        .copy-btn:hover {
-            background: #30363d;
-            color: #f0f6fc;
-            border-color: #58a6ff;
-        }
-        .copy-btn.copied {
-            border-color: #3fb950;
-            color: #3fb950;
-        }
-
-        /* ── banner / note ── */
-        .note {
-            background: #1c2333;
-            border-left: 4px solid #58a6ff;
-            padding: 0.8rem 1.2rem;
-            border-radius: 6px;
-            margin: 1.2rem 0;
-        }
-        .note strong { color: #f0f6fc; }
-
-        /* ── responsive ── */
-        @media (max-width: 600px) {
-            body { padding: 1rem 0.5rem; }
-            .container { padding: 1.5rem 1rem; }
-            h1 { font-size: 1.6rem; }
-            pre { padding: 0.8rem; }
-            .copy-btn { position: static; display: inline-block; margin-top: 0.4rem; }
-        }
-    </style>
+    <title>Virtual Chat — Turn any audio into a conversation</title>
+    <meta name="description"
+          content="Virtual Chat is a real-time audio-to-conversation formatter for Linux. Transcribe system or Bluetooth audio into live chat, bring your own AI assistant, and get automatic chat summaries.">
+    <meta property="og:title" content="Virtual Chat">
+    <meta property="og:description"
+          content="Turn any audio into a conversation. Real-time audio-to-chat transcription for Linux, powered by OpenRouter's AI models.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maxkcy.github.io/Virtual-Chat/">
+    <link rel="icon" type="image/png" href="assets/vhicon.png">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="container">
 
-    <h1>💬 Virtual Chat</h1>
-    <div class="subhead">Self-hosted Flatpak — install directly from our GitHub repository.</div>
+    <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
+    <header class="nav">
+        <div class="nav-inner container">
+            <a href="#home" class="brand" aria-label="Virtual Chat home">
+                <img src="assets/vhicon.png" alt="Virtual Chat icon">
+                <span>Virtual Chat</span>
+            </a>
 
-    <p>
-        Virtual Chat is distributed as a <strong>self-hosted Flatpak</strong>.
-        This means the app is <em>not</em> on the official Flathub store — you install it directly
-        from our GitHub repository.
-    </p>
+            <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
 
-    <!-- ─── INSTALL ─── -->
-    <h2>📦 First-time installation</h2>
+            <nav id="nav-menu" class="nav-links" aria-label="Main navigation">
+                <a href="#features">Features</a>
+                <a href="#screenshots">Screenshots</a>
+                <a href="#demo">Demo</a>
+                <a href="#download">Download</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="https://github.com/maxkcy/Virtual-Chat" class="nav-cta" target="_blank" rel="noopener">GitHub ↗</a>
+            </nav>
+        </div>
+    </header>
 
-    <h3>1. Install Flatpak</h3>
-    <p>If you don’t already have Flatpak installed:</p>
+    <!--
+        Section anchors referenced by the nav:
+        #home, #features, #screenshots, #demo, #download, #pricing, #faq
+        (Update & Uninstall sections: #update, #uninstall — not in top nav)
+    -->
 
-    <pre><code># Debian / Ubuntu
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="hero" id="home">
+        <!--
+            Phase 2: three.js hero scene canvas (logo `assets/vcicon-wbkg.png`
+            rotating on Y, slight X tilt toward mouse). The canvas is kept hidden
+            until initHeroScene() renders into it — for now the static logo shows.
+        -->
+        <canvas id="hero-canvas" class="hero-canvas hero-canvas--hidden" aria-hidden="true"></canvas>
+
+        <div class="hero-inner">
+            <img src="assets/vcicon-wbkg.png" alt="Virtual Chat logo" class="hero-logo">
+
+            <span class="hero-badge">Transcribe Smart Phone Audio · Podcasts · Tiktok Live · Online Dating</span>
+
+            <h1 class="neon-title">Virtual Chat</h1>
+            <p class="hero-tagline">Turn any audio into a conversation.</p>
+
+            <p class="hero-desc">
+                A real-time audio-to-conversation formatter. It transcribes input and output audio from
+                system or Bluetooth-linked devices (headset, phone, etc.) into a text-based chat format. Add your own AI assistant with a custom
+                prompt, get automatic chat summaries, and keep content flowing for podcasts, live streams,
+                or TikTok Live.
+            </p>
+
+            <div class="hero-cta">
+                <a href="#download" class="btn btn-primary">⬇&nbsp; Download</a>
+            </div>
+
+            <div class="hero-meta">
+                <span>System &amp; Bluetooth audio</span>
+                <span>AI assistant</span>
+                <span>Auto-summaries</span>
+                <span>Free trial available</span>
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+        <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
+        <section id="features">
+            <div class="container">
+                <div class="section-kicker">Key Features</div>
+                <h2 class="section-title reveal">What Virtual Chat can do</h2>
+                <p class="lead reveal">The technology used in Virtual Chat.</p>
+
+                <ul class="feature-list reveal">
+                    <li><strong>Transcribe anything</strong> – system audio or Bluetooth devices (A2DP/HFP) become live chat messages, so you can connect your phone and transcribe all phone audio to chat — ideal for talking to friends or important interactions online.</li>
+                    <li><strong>AI assistant</strong> – bring your own OpenRouter key, set a completely custom prompt with no limitations, AI responds according to transcribed messages and the prompt instructions.</li>
+                    <li><strong>Auto-summarisation</strong> – get concise recaps of long conversations. Choose when assistance and summaries trigger (message count or time limit) and how many messages each one covers.</li>
+                    <li><strong>Secure by default</strong> – API keys are stored in the system keyring, and built-in speech detection only sends audio once speech is detected — limiting network requests and saving bandwidth.</li>
+                    <li><strong>Works with your workflow</strong> – perfect for podcasters, streamers, and content creators. Tune transcription with minimum/maximum recording times and silence cut-off.</li>
+                    <li><strong>Unlimited model choice</strong> – choose from a nearly-unlimited number of Text and Transcription models on OpenRouter, with no token-based usage limits after subscription.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ SCREENSHOTS ═══════════════════════ -->
+        <section id="screenshots">
+            <div class="container">
+                <div class="section-kicker">Screenshots</div>
+                <h2 class="section-title reveal">Quick look</h2>
+                <p class="lead reveal">A look at the Virtual Chat interface.</p>
+
+                <div class="carousel reveal" id="screenshot-carousel" aria-roledescription="carousel" aria-label="Virtual Chat screenshots">
+                    <div class="carousel-viewport">
+                        <div class="carousel-track">
+                            <figure class="carousel-slide">
+                                <img src="https://raw.githubusercontent.com/maxkcy/Virtual-Chat/main/vcscreenshots/1.png" alt="Virtual Chat screenshot 1" loading="lazy">
+                                <figcaption>Screenshot 1</figcaption>
+                            </figure>
+                            <figure class="carousel-slide">
+                                <img src="https://raw.githubusercontent.com/maxkcy/Virtual-Chat/main/vcscreenshots/2.png" alt="Virtual Chat screenshot 2" loading="lazy">
+                                <figcaption>Screenshot 2</figcaption>
+                            </figure>
+                            <figure class="carousel-slide">
+                                <img src="https://raw.githubusercontent.com/maxkcy/Virtual-Chat/main/vcscreenshots/3.png" alt="Virtual Chat screenshot 3" loading="lazy">
+                                <figcaption>Screenshot 3</figcaption>
+                            </figure>
+                            <figure class="carousel-slide">
+                                <img src="https://raw.githubusercontent.com/maxkcy/Virtual-Chat/main/vcscreenshots/4.png" alt="Virtual Chat screenshot 4" loading="lazy">
+                                <figcaption>Screenshot 4</figcaption>
+                            </figure>
+                            <figure class="carousel-slide">
+                                <img src="https://raw.githubusercontent.com/maxkcy/Virtual-Chat/main/vcscreenshots/5.png" alt="Virtual Chat screenshot 5" loading="lazy">
+                                <figcaption>Screenshot 5</figcaption>
+                            </figure>
+                            <figure class="carousel-slide">
+                                <img src="https://raw.githubusercontent.com/maxkcy/Virtual-Chat/main/vcscreenshots/6.png" alt="Virtual Chat screenshot 6" loading="lazy">
+                                <figcaption>Screenshot 6</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Previous screenshot">‹</button>
+                    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Next screenshot">›</button>
+
+                    <div class="carousel-dots" role="tablist" aria-label="Choose screenshot"></div>
+                    <p class="carousel-counter" aria-live="polite">1 / 6</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ DEMO ═══════════════════════ -->
+        <section id="demo">
+            <div class="container">
+                <div class="section-kicker">Demo</div>
+                <h2 class="section-title reveal">Video tutorial on how to use Virtual Chat</h2>
+                <p class="lead reveal">A quick tour of the app, showing how to set up transcription, the AI assistant, and other configurations.</p>
+
+                <div class="video-wrap reveal">
+                    <iframe src="https://www.youtube-nocookie.com/embed/7Ver6qHS4H4"
+                            title="Virtual Chat demo video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ DOWNLOAD & INSTALL ═══════════════════════ -->
+        <section id="download">
+            <div class="container">
+                <div class="section-kicker">Download &amp; Install</div>
+                <h2 class="section-title reveal">Get Virtual Chat</h2>
+
+                <p class="lead reveal">
+                    Virtual Chat is distributed as a <strong>self-hosted Flatpak</strong>. A
+                    <strong>.deb</strong> package is also available for Debian/Ubuntu users via the
+                    <a href="https://github.com/maxkcy/Virtual-Chat/releases" target="_blank" rel="noopener">Releases page</a>
+                    (note: it needs manual updates and uninstalls). We recommend the Flatpak build — continue below.
+                </p>
+
+                <div class="download-cards">
+                    <div class="dl-card reveal">
+                        <h4>📦 Flatpak (recommended)</h4>
+                        <p>Secure, sandboxed install that works on most Linux distros. Easy to update via Flatpak.</p>
+                        <a class="btn btn-primary" href="io.github.maxkcy.virtual-chat.flatpakref">Download .flatpakref</a>
+                    </div>
+                    <div class="dl-card reveal">
+                        <h4>🐧 Debian / Ubuntu (.deb)</h4>
+                        <p>Simple download &amp; click install. Requires manual updates and uninstalls.</p>
+                        <a class="btn btn-ghost" href="https://github.com/maxkcy/Virtual-Chat/releases" target="_blank" rel="noopener">Go to Releases ↗</a>
+                    </div>
+                    <!-- <div class="dl-card reveal">
+                        <h4>🔑 Public key</h4>
+                        <p>Verify the Flatpak repository signature with our published GPG key.</p>
+                        <a class="btn btn-ghost" href="public-key.txt" target="_blank" rel="noopener">View key ↗</a>
+                    </div> -->
+                </div>
+
+                <!-- ── First-time installation ── -->
+                <div class="step reveal">
+                    <h3><span class="step-num">1</span> Install Flatpak</h3>
+                    <p>If you don’t already have Flatpak installed:</p>
+                    <div class="pre-wrap"><code># Debian / Ubuntu
 sudo apt install flatpak
 
 # Fedora
 sudo dnf install flatpak
 
 # Arch
-sudo pacman -S flatpak</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+sudo pacman -S flatpak</code><button class="copy-btn" type="button">Copy</button></div>
+                    <div class="note">
+                        <strong>💡 Tip:</strong> After installing Flatpak, you may need to restart your session or
+                        log out and back in for application-menu integration to work.
+                    </div>
+                </div>
 
-    <div class="note">
-        <strong>💡 Tip:</strong> After installing Flatpak, you may need to restart your session or log out and back in for the application menu integration to work.
+                <div class="step reveal">
+                    <h3><span class="step-num">2</span> Install Virtual Chat</h3>
+                    <div class="pre-wrap"><code>flatpak install --user https://maxkcy.github.io/Virtual-Chat/io.github.maxkcy.virtual-chat.flatpakref</code><button class="copy-btn" type="button">Copy</button></div>
+                </div>
+
+                <div class="step reveal">
+                    <h3><span class="step-num">3</span> Launch the app</h3>
+                    <div class="pre-wrap"><code>flatpak run io.github.maxkcy.virtual-chat</code><button class="copy-btn" type="button">Copy</button></div>
+                    <p>Or search for <strong>Virtual Chat</strong> in your application menu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ UPDATE ═══════════════════════ -->
+        <section id="update">
+            <div class="container">
+                <div class="section-kicker">Update</div>
+                <h2 class="section-title reveal">Updating Virtual Chat</h2>
+
+                <p class="lead reveal">
+                    Virtual Chat includes a <strong>built-in update checker</strong>. On launch, the app checks
+                    the latest release from GitHub. If a newer version is available, a golden
+                    <strong>“Update Available: X.Y.Z”</strong> banner appears at the top of the chat list.
+                </p>
+
+                <div class="step reveal">
+                    <h3><span class="step-num">1</span> Run the update command</h3>
+                    <p>In your terminal:</p>
+                    <div class="pre-wrap"><code>flatpak update --user io.github.maxkcy.virtual-chat</code><button class="copy-btn" type="button">Copy</button></div>
+                    <p>
+                        Or simply update all your user-installed Flatpak apps (including Virtual Chat and any
+                        apps from Flathub or other Flatpak remotes):
+                    </p>
+                    <div class="pre-wrap"><code>flatpak update --user</code><button class="copy-btn" type="button">Copy</button></div>
+                </div>
+
+                <div class="step reveal">
+                    <h3><span class="step-num">2</span> Relaunch the app</h3>
+                    <p>The “Update Available” banner will disappear:</p>
+                    <div class="pre-wrap"><code>flatpak run io.github.maxkcy.virtual-chat</code><button class="copy-btn" type="button">Copy</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ UNINSTALL ═══════════════════════ -->
+        <section id="uninstall">
+            <div class="container">
+                <div class="section-kicker">Uninstall</div>
+                <h2 class="section-title reveal">Uninstalling Virtual Chat</h2>
+
+                <div class="step reveal">
+                    <h3><span class="step-num">1</span> Uninstall the app</h3>
+                    <div class="pre-wrap"><code>flatpak uninstall --user io.github.maxkcy.virtual-chat</code><button class="copy-btn" type="button">Copy</button></div>
+                </div>
+
+                <div class="step reveal">
+                    <h3><span class="step-num">2</span> Remove all app data</h3>
+                    <p>Settings, chat history, and cache:</p>
+                    <div class="pre-wrap"><code>rm -rf ~/.var/app/io.github.maxkcy.virtual-chat/</code><button class="copy-btn" type="button">Copy</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ PRICING ═══════════════════════ -->
+        <section id="pricing">
+            <div class="container">
+                <div class="section-kicker">Pricing</div>
+                <h2 class="section-title reveal">Simple subscription pricing</h2>
+
+                <p class="lead reveal">
+                    Virtual Chat is a <strong>paid subscription app</strong> — a free trial is available.
+                    Low and High Tiers run from <strong>US$6.99-15.99</strong> per quarter or year, with
+                    payments processed by <strong>Xsolla</strong>.
+                </p>
+
+                <div class="pricing-grid">
+                    <div class="price-card featured reveal">
+                        <span class="tag">Low / High Tier</span>
+                        <h3>Quarterly / Yearly</h3>
+                        <p class="amount">US$6.99 – 15.99<small> per quarter or year</small></p>
+                        <ul>
+                            <li>Free trial available</li>
+                            <li>Payments processed by Xsolla</li>
+                        </ul>
+                        <a class="btn btn-primary" href="https://virtual-chat-ai-assisted-transcribed-chat.xsolla.site/" target="_blank" rel="noopener">View subscription plans ↗</a>
+                    </div>
+                </div>
+
+                <div class="note reveal">
+                    <strong>💡 OpenRouter API costs:</strong> Estimated <strong>~$0.50 per hour</strong> during
+                    active use, depending entirely on which models are used. OpenRouter provides several
+                    <strong>free models</strong>. We do not get paid through OpenRouter, and no extra hourly
+                    charges are added to the subscription plan.
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════ FAQ ═══════════════════════ -->
+        <section id="faq">
+            <div class="container">
+                <div class="section-kicker">FAQ</div>
+                <h2 class="section-title reveal">Frequently asked questions</h2>
+
+                <div class="faq-list reveal">
+                    <details class="faq-item">
+                        <summary>Can smart phone audio be transcribed to chat?</summary>
+                        <div class="faq-body">
+                            Yes, just connect the phone and headset to the Linux computer via Bluetooth, then
+                            configure Linux sound settings for audio input and output to use your Bluetooth
+                            connected headset. Select the headset device and start transcribing with AI assistance.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Do I need a Bluetooth adapter?</summary>
+                        <div class="faq-body">
+                            Only if you plan to use a headset and/or connect phone (strongly recommended). Only
+                            adapters that support at least HFP (A2DP strongly recommended) can be used. Virtual Chat automatically detects compatible adapters.
+                            Many computers have adapters that support these profiles by default. While many adapters
+                            support multiple connected devices, we recommend using different adapters for phone
+                            and headset, since we noticed it helps with performance. Make sure to set the adapter
+                            to “always visible” in Bluetooth adapter preferences.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Do I need a Bluetooth headset?</summary>
+                        <div class="faq-body">
+                            No, you can use system audio. However, system audio is experimental. The app has a
+                            pre-baked list of audio cards to determine if system audio is available. The app may
+                            not have your audio card in its list, but it should support any headset with at least
+                            HFP (A2DP strongly recommended).
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Does Virtual Chat continuously transmit all audio to OpenRouter while transcription is on?</summary>
+                        <div class="faq-body">
+                            No. Virtual Chat uses both volume level and a built-in speech-detection algorithm.
+                            Audio is only sent when speech is detected. If you're away from the computer, turn off
+                            transcription to be safe.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Why is this Linux only?</summary>
+                        <div class="faq-body">
+                            Linux provides the easiest development path for this kind of app. Windows would require
+                            extra features, and Android doesn't allow audio capture. A companion mobile bridge app
+                            can be created. Linux is easy to install on your same Windows or Mac computer in
+                            dual-boot configuration. We recommend the Linux Mint distro.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Is an internet connection required?</summary>
+                        <div class="faq-body">
+                            Yes, you need an internet connection for OpenRouter.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Does the app support locally running models?</summary>
+                        <div class="faq-body">
+                            No. We don't have the infrastructure to build/test local models, and cloud models are
+                            more powerful, robust, fast, and affordable. OpenRouter respects your privacy and even
+                            offers free models.
+                        </div>
+                    </details>
+                </div>
+
+                <div class="known-issues reveal">
+                    <h3>⚠️ Known Issues</h3>
+                    <ul>
+                        <li>
+                            Input and output audio streams on a single Bluetooth adapter causes audio lagging and
+                            jittering because both the smart phone, that provides audio, and the headset, that captures
+                            audio, are connected and creating multiple input and output audio streams on the same adapter.
+                            This may be a hardware limitation, but we are looking into ways to optimize the code. We suggest you connect the
+                            smart phone and the headset to different adapters in the meantime to help with the audio lag
+                            issue.
+                        </li>
+                        <li>
+                            The transcription system can occasionally crash (rare). If audio suddenly stops being
+                            transcribed, it's often caused by rapidly switching app audio (e.g., scrolling videos) or
+                            pressing buttons too quickly. Launch the app with terminal to see any error logs, and notify us of any issue.
+                            Otherwise simply restart the app and use your computer normally.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Screenshot preview">
+        <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
+        <img alt="" src="">
     </div>
 
-    <h3>2. Add our self-hosted repository</h3>
-    <p>
-        Our Flatpak repository is served from GitHub Pages:<br>
-        <code>https://maxkcy.github.io/Virtual-Chat/</code>
-    </p>
-    <pre><code>flatpak remote-add --if-not-exists --user virtual-chat-repo https://maxkcy.github.io/Virtual-Chat/</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
-
-    <h3 id="install">3. Install Virtual Chat</h3>
-    <pre><code>flatpak install --user virtual-chat-repo io.github.maxkcy.virtual-chat</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
-
-    <h3>4. Launch the app</h3>
-    <pre><code>flatpak run io.github.maxkcy.virtual-chat</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
-    <p>Or search for <strong>Virtual Chat</strong> in your application menu.</p>
-
-    <!-- ─── UPDATE ─── -->
-    <h2 id="update">🔄 Updating Virtual Chat</h2>
-
-    <p>
-        Virtual Chat includes a <strong>built-in update checker</strong>. On launch, the app checks
-        the latest release from GitHub. If a newer version is available, a golden
-        <strong>“Update Available: X.Y.Z”</strong> banner appears at the top of the chat list.
-    </p>
-
-    <h3>To update the app:</h3>
-    <ol>
-        <li>
-            <strong>Click the “Update Available” banner</strong> in the app (if displayed)
-            — this takes you to our Github page with instructions on how to update.
-        </li>
-        <li>
-            <strong>Or run the update command</strong> manually in your terminal:
-        </li>
-    </ol>
-
-    <pre><code>flatpak update --user virtual-chat-repo io.github.maxkcy.virtual-chat</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
-
-     <p><strong>To update all your user-installed Flatpak apps</strong> (including Virtual Chat
-        and any apps from Flathub or other Flatpak remotes), use:</p>
-    <pre><code>flatpak update --user</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
-
-    <p>After the update completes, relaunch Virtual Chat and the banner will disappear.</p>
-    <pre><code>flatpak run io.github.maxkcy.virtual-chat</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
-    
-    <!-- ─── FOOTER ─── -->
-    <hr style="border: 0; border-top: 1px solid #30363d; margin: 2.5rem 0 1rem;">
-    <p style="font-size: 0.85rem; color: #8b949e; text-align: center;">
-        Virtual Chat · Self-hosted Flatpak ·
-        <a href="https://github.com/maxkcy/Virtual-Chat" target="_blank">GitHub</a>
-    </p>
-
-</div>
-
-<!-- ─── COPY BUTTON SCRIPT ─── -->
-<script>
-function copyCode(btn) {
-    const pre = btn.closest('pre');
-    const code = pre.querySelector('code');
-    const text = code.textContent;
-
-    navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-            btn.textContent = 'Copy';
-            btn.classList.remove('copied');
-        }, 2000);
-    }).catch(() => {
-        // Fallback for older browsers
-        const range = document.createRange();
-        range.selectNode(code);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand('copy');
-        btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = 'Copy', 2000);
-    });
-}
-</script>
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
 </body>
 </html>
