@@ -4,9 +4,9 @@
  * Source file : script.ts
  * Compiled to : script.js   (tsc — see tsconfig.json)
  *
- * Phase 2 note: the three.js hero model (logo `assets/vcicon-wbkg.png`
- * rotating on the Y axis with a slight X-axis tilt toward the mouse)
- * will be implemented inside initHeroScene().
+ * Phase 2: the hero logo is rendered by three.js inside initHeroScene() —
+ * a flat plane textured with `assets/vcicon-wbkg.png` that sways, tilts
+ * toward the pointer, and turns when clicked or dragged.
  */
 
 // ---------------------------------------------------------------------------
@@ -341,30 +341,307 @@ function initActiveNav(): void {
 }
 
 // ---------------------------------------------------------------------------
-// Hero background
+// Hero — three.js logo scene
 // ---------------------------------------------------------------------------
-// Phase 1 : static logo <img> rendered on the --bkg gradient (see index.html).
-// Phase 2 : three.js scene — logo texture rotating on Y, slight X tilt toward
-//           the mouse. Canvas is already wired in place below.
+// The hero logo is rendered by three.js on a transparent canvas: a flat plane
+// textured with `assets/vcicon-wbkg.png` floating in 3D space. The logo sways,
+// tilts toward the pointer, and turns a full spin when clicked — or is turned
+// freely by dragging. It gracefully falls back to the static <img> when the
+// three.js CDN is unreachable or the user prefers reduced motion.
+
+declare const THREE: any; // three.js UMD global (script tag in index.html)
 
 const HERO_CANVAS_ID = 'hero-canvas';
+const HERO_TEXTURE_SRC = 'assets/vcicon-wbkg.png';
+const HERO_FOV = 45;
+const HERO_CAM_Z = 5.2;
+const HERO_PLANE_SIZE = 4.1;
+const TAU = Math.PI * 2;
+
+// Hero background — perspective grid floor (full-bleed canvas).
+const HERO_GRID_CANVAS_ID = 'hero-grid-canvas';
+const HERO_GRID_SIZE = 44;
+const HERO_GRID_DIVISIONS = 44;
+const HERO_GRID_CENTER_COLOR = 0xff8c2e; // bright orange accent — the two centre axes
+const HERO_GRID_LINE_COLOR = 0xaf4f00; // main brand orange — the grid lines
+
+function clamp(v: number, lo: number, hi: number): number {
+  return Math.min(Math.max(v, lo), hi);
+}
+
+/**
+ * Full-bleed perspective grid floor behind the whole hero. A flat grid on the
+ * ground plane recedes toward the horizon; scene fog fades its colour to black
+ * with distance, giving the "bright near the bottom → black far at the top"
+ * gradient. Rendering is cheap and static, so it only redraws on resize.
+ */
+function initHeroGrid(): void {
+  const canvas = document.getElementById(HERO_GRID_CANVAS_ID) as HTMLCanvasElement | null;
+  const hero = canvas ? (canvas.closest('.hero') as HTMLElement | null) : null;
+  if (!canvas || !hero) return;
+
+  // Keep the plain black hero background when three.js is missing or motion
+  // is reduced.
+  if (typeof THREE === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance',
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene = new THREE.Scene();
+  scene.background = null; // transparent → CSS --bg (black) shows through
+
+  // Low camera looking almost level — just a light downward tilt — so the
+  // horizon climbs high and the floor fills most of the screen.
+  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 1.4, 4.2);
+  camera.lookAt(0, 0.3, -10);
+
+  // Flat grid lying on the ground plane (XZ), all lines in the brand orange.
+  const grid = new THREE.GridHelper(
+    HERO_GRID_SIZE,
+    HERO_GRID_DIVISIONS,
+    HERO_GRID_CENTER_COLOR,
+    HERO_GRID_LINE_COLOR
+  );
+  grid.material.transparent = true;
+  grid.material.opacity = 0.5;
+  scene.add(grid);
+
+  // Subtle orange glow on the floor itself (strongest near, fading far).
+  const glowCanvas = document.createElement('canvas');
+  glowCanvas.width = 2;
+  glowCanvas.height = 256;
+  const glowCtx = glowCanvas.getContext('2d');
+  if (glowCtx) {
+    const grad = glowCtx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, 'rgba(255,140,46,0)'); // far → transparent
+    grad.addColorStop(0.6, 'rgba(255,140,46,0.14)');
+    grad.addColorStop(1, 'rgba(255,140,46,0.5)'); // near → orange glow
+    glowCtx.fillStyle = grad;
+    glowCtx.fillRect(0, 0, 2, 256);
+    const glowTexture = new THREE.CanvasTexture(glowCanvas);
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(HERO_GRID_SIZE, HERO_GRID_SIZE),
+      new THREE.MeshBasicMaterial({
+        map: glowTexture,
+        transparent: true,
+        depthWrite: false,
+      })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = 0;
+    scene.add(floor);
+  }
+
+  // Near-to-far fade: lines close to the camera are full colour, then dissolve
+  // into black at the horizon.
+  scene.fog = new THREE.Fog(0x000000, 3.4, 17);
+
+  const render = (): void => renderer.render(scene, camera);
+
+  const resize = (): void => {
+    const w = hero.clientWidth || 1;
+    const h = hero.clientHeight || 1;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    render();
+  };
+
+  window.addEventListener('resize', resize);
+  resize();
+}
 
 function initHeroScene(): void {
   const canvas = document.getElementById(HERO_CANVAS_ID) as HTMLCanvasElement | null;
-  if (!canvas) return;
+  const slot = canvas ? (canvas.parentElement as HTMLElement | null) : null;
+  if (!canvas || !slot) return;
 
-  // Keep the (currently empty) canvas invisible until the three.js scene is
-  // implemented in phase 2.
-  canvas.classList.add('hero-canvas--hidden');
+  // Keep the static logo when three.js is missing or motion is reduced.
+  if (typeof THREE === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // TODO(phase 2): three.js scene
-  //  - THREE.TextureLoader().load('assets/vcicon-wbkg.png')
-  //  - MeshBasicMaterial({ map }) on a PlaneGeometry
-  //  - continuous rotation.y += dt * speed
-  //  - lerp rotation.x toward mouse-tracking target on pointermove
-  //  - pause on document.visibilitychange
-  //  - respect prefers-reduced-motion + small-screen quality tiers
-  //  - remove hero-canvas--hidden once ready
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true,
+    powerPreference: 'high-performance',
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x000000, 0); // transparent → the grid floor shows through
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(HERO_FOV, 1, 0.1, 100);
+  camera.position.z = HERO_CAM_Z;
+
+  const raycaster = new THREE.Raycaster();
+  const pointerNdc = { x: 0, y: 0 };
+
+  let plane: any = null; // THREE.Mesh — the logo
+  let rafId = 0;
+  let lastTime = performance.now();
+
+  // Rotation state.
+  let yaw = 0.5;
+  let pitch = 0.15;
+  let targetYaw = 0.5;
+  let targetPitch = 0.15;
+  let spinOffset = 0; // extra full turns accumulated from clicks
+  let hoverTilt = 0; // -1..1, pointer Y influence on pitch
+
+  // Drag state.
+  let dragging = false;
+  let startClientX = 0;
+  let startClientY = 0;
+  let startYaw = 0;
+  let startPitch = 0;
+  let moved = 0;
+
+  const sway = (t: number): number => Math.sin(t * 0.35) * 0.45;
+
+  const setNdc = (e: PointerEvent, rect: DOMRect): void => {
+    pointerNdc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    pointerNdc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+  };
+
+  const onPointerMove = (e: PointerEvent): void => {
+    if (!plane) return;
+    const rect = canvas.getBoundingClientRect();
+    setNdc(e, rect);
+
+    if (dragging) {
+      const dx = e.clientX - startClientX;
+      const dy = e.clientY - startClientY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      targetYaw = startYaw + dx * 0.012;
+      targetPitch = clamp(startPitch + dy * 0.012, -0.8, 0.8);
+    } else {
+      hoverTilt = -pointerNdc.y * 0.4;
+      raycaster.setFromCamera(pointerNdc, camera);
+      const hits = raycaster.intersectObject(plane);
+      canvas.style.cursor = hits.length > 0 ? 'grab' : 'default';
+    }
+  };
+
+  const onPointerDown = (e: PointerEvent): void => {
+    if (!plane) return;
+    const rect = canvas.getBoundingClientRect();
+    setNdc(e, rect);
+    raycaster.setFromCamera(pointerNdc, camera);
+    const hits = raycaster.intersectObject(plane);
+    if (hits.length === 0) return; // only grab when clicking the logo
+
+    dragging = true;
+    moved = 0;
+    startClientX = e.clientX;
+    startClientY = e.clientY;
+    startYaw = yaw;
+    startPitch = pitch;
+    canvas.setPointerCapture(e.pointerId);
+    canvas.style.cursor = 'grabbing';
+    e.preventDefault();
+  };
+
+  const onPointerUp = (e: PointerEvent): void => {
+    if (!dragging) return;
+    dragging = false;
+    if (canvas.hasPointerCapture(e.pointerId)) {
+      canvas.releasePointerCapture(e.pointerId);
+    }
+    canvas.style.cursor = 'grab';
+
+    const t = performance.now() * 0.001;
+    if (moved < 6) {
+      // A click: turn the logo a full spin.
+      spinOffset += TAU;
+      targetYaw = spinOffset + sway(t);
+    } else {
+      // End of a drag: absorb the rotation so idle sway has no jump.
+      spinOffset = targetYaw - sway(t);
+    }
+  };
+
+  const onPointerLeave = (): void => {
+    if (!dragging) hoverTilt = 0;
+  };
+
+  const resize = (): void => {
+    const w = slot.clientWidth || 1;
+    const h = slot.clientHeight || 1;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  };
+
+  const tick = (now: number): void => {
+    const dt = Math.min((now - lastTime) / 1000, 0.05);
+    lastTime = now;
+    const t = now * 0.001;
+
+    if (plane) {
+      if (!dragging) {
+        targetYaw = spinOffset + sway(t);
+        targetPitch = Math.sin(t * 0.22) * 0.08 + hoverTilt;
+      }
+      yaw += (targetYaw - yaw) * Math.min(1, dt * 5);
+      pitch += (targetPitch - pitch) * Math.min(1, dt * 5);
+      plane.rotation.y = yaw;
+      plane.rotation.x = pitch;
+      plane.position.y = Math.sin(t * 1.2) * 0.06;
+      renderer.render(scene, camera);
+    }
+    rafId = requestAnimationFrame(tick);
+  };
+
+  const onVisibility = (): void => {
+    if (document.hidden) {
+      cancelAnimationFrame(rafId);
+    } else if (plane) {
+      lastTime = performance.now();
+      rafId = requestAnimationFrame(tick);
+    }
+  };
+
+  window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', onVisibility);
+
+  const loader = new THREE.TextureLoader();
+  loader.load(
+    HERO_TEXTURE_SRC,
+    (texture: any) => {
+      texture.encoding = THREE.sRGBEncoding;
+      const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      });
+      plane = new THREE.Mesh(new THREE.PlaneGeometry(HERO_PLANE_SIZE, HERO_PLANE_SIZE), material);
+      scene.add(plane);
+
+      resize();
+      canvas.classList.remove('hero-canvas--hidden');
+      document.documentElement.classList.add('hero-3d');
+
+      canvas.addEventListener('pointermove', onPointerMove);
+      canvas.addEventListener('pointerdown', onPointerDown);
+      canvas.addEventListener('pointerup', onPointerUp);
+      canvas.addEventListener('pointerleave', onPointerLeave);
+
+      lastTime = performance.now();
+      rafId = requestAnimationFrame(tick);
+    },
+    undefined,
+    () => {
+      /* Texture failed to load — keep the static logo. */
+    }
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -379,5 +656,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCarousel();
   initReveal();
   initActiveNav();
+  initHeroGrid();
   initHeroScene();
 });

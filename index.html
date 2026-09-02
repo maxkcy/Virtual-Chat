@@ -36,6 +36,7 @@
                 <a href="#download">Download</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
+                <a href="#terms-privacy">Terms</a>
                 <a href="https://github.com/maxkcy/Virtual-Chat" class="nav-cta" target="_blank" rel="noopener">GitHub ↗</a>
             </nav>
         </div>
@@ -49,37 +50,46 @@
 
     <!-- ═══════════════════════ HERO ═══════════════════════ -->
     <section class="hero" id="home">
-        <!--
-            Phase 2: three.js hero scene canvas (logo `assets/vcicon-wbkg.png`
-            rotating on Y, slight X tilt toward mouse). The canvas is kept hidden
-            until initHeroScene() renders into it — for now the static logo shows.
-        -->
-        <canvas id="hero-canvas" class="hero-canvas hero-canvas--hidden" aria-hidden="true"></canvas>
-
+        <!-- Phase 2: three.js hero scene.
+             1) .hero-grid-canvas — full-bleed perspective grid floor that fades
+                to black from near (bottom) to far (horizon/top), rendered by
+                initHeroGrid(). Falls back to the plain black hero background.
+             2) The 3D logo (flat plane textured with `assets/vcicon-wbkg.png`)
+                spins gently, tilts toward the pointer, and turns when
+                clicked/dragged (initHeroScene). Its canvas stays hidden (static
+                logo shows) until the texture is ready, or if three.js is
+                unavailable / reduced-motion is preferred. -->
+        <canvas id="hero-grid-canvas" class="hero-grid-canvas" aria-hidden="true"></canvas>
         <div class="hero-inner">
-            <img src="assets/vcicon-wbkg.png" alt="Virtual Chat logo" class="hero-logo">
+            <div class="hero-copy">
+                <h1 class="neon-title">Virtual Chat</h1>
+                <p class="hero-tagline">Turn any audio into a conversation.</p>
 
-            <span class="hero-badge">Transcribe Smart Phone Audio · Podcasts · Tiktok Live · Online Dating</span>
+                <p class="hero-desc">
+                    A real-time audio-to-conversation formatter. It transcribes input and output audio from
+                    system or Bluetooth-linked devices (headset, phone, etc.) into a text-based chat format. Add your own AI assistant with a custom
+                    prompt, get automatic chat summaries, and keep content flowing for podcasts, live streams,
+                    or TikTok Live.
+                </p>
 
-            <h1 class="neon-title">Virtual Chat</h1>
-            <p class="hero-tagline">Turn any audio into a conversation.</p>
+                <div class="hero-cta">
+                    <a href="#download" class="btn btn-primary">⬇&nbsp; Download</a>
+                </div>
 
-            <p class="hero-desc">
-                A real-time audio-to-conversation formatter. It transcribes input and output audio from
-                system or Bluetooth-linked devices (headset, phone, etc.) into a text-based chat format. Add your own AI assistant with a custom
-                prompt, get automatic chat summaries, and keep content flowing for podcasts, live streams,
-                or TikTok Live.
-            </p>
-
-            <div class="hero-cta">
-                <a href="#download" class="btn btn-primary">⬇&nbsp; Download</a>
+                <div class="hero-meta">
+                    <span>System &amp; Bluetooth audio</span>
+                    <span>AI assistant</span>
+                    <span>Auto-summaries</span>
+                    <span>Free trial available</span>
+                </div>
             </div>
 
-            <div class="hero-meta">
-                <span>System &amp; Bluetooth audio</span>
-                <span>AI assistant</span>
-                <span>Auto-summaries</span>
-                <span>Free trial available</span>
+            <div class="hero-visual">
+                <div class="hero-logo-slot">
+                    <canvas id="hero-canvas" class="hero-canvas hero-canvas--hidden" aria-hidden="true"></canvas>
+                    <img src="assets/vcicon-wbkg.png" alt="Virtual Chat logo" class="hero-logo">
+                </div>
+                <span class="hero-badge">Transcribe Smart Phone Audio · Podcasts · Tiktok Live · Online Dating</span>
             </div>
         </div>
     </section>
@@ -409,6 +419,36 @@ sudo pacman -S flatpak</code><button class="copy-btn" type="button">Copy</button
             </div>
         </section>
 
+        <!-- ═══════════════════════ TERMS &amp; PRIVACY ═══════════════════════ -->
+        <section id="terms-privacy">
+            <div class="container">
+                <div class="section-kicker">Legal</div>
+                <h2 class="section-title reveal">Terms &amp; Privacy</h2>
+                <p class="lead reveal">The terms of use and privacy statement for Virtual Chat.</p>
+
+                <div class="legal-grid reveal">
+                    <div class="legal-card">
+                        <h3>Terms of Use</h3>
+                        <p>
+                            Virtual Chat is proprietary, copyrighted code. <strong>All rights reserved.</strong>
+                            You may not copy, modify, distribute, or reverse-engineer it without explicit written
+                            permission from the copyright holder. Redistribution is permitted only when done with
+                            permission.
+                        </p>
+                    </div>
+
+                    <div class="legal-card">
+                        <h3>Privacy</h3>
+                        <p>
+                            Virtual Chat does not send network requests or send your data to a server. The only
+                            exception is <strong>OpenRouter API calls</strong>, which are required for the app to
+                            function (e.g., live transcription and the AI assistant).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Lightbox -->
@@ -418,6 +458,9 @@ sudo pacman -S flatpak</code><button class="copy-btn" type="button">Copy</button
     </div>
 
     <!-- Scripts -->
+    <!-- three.js UMD global build (r149 — no r150+ deprecation warning). The
+         hero falls back to the static logo if this CDN is unreachable. -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" defer></script>
     <script src="script.js" defer></script>
 </body>
 </html>
